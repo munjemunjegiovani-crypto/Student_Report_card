@@ -1,0 +1,193 @@
+/* ---------- Colours and sizes in one place ---------- */
+:root {
+  --ink: #1b1f24;
+  --muted: #5a6572;
+  --line: #c9ced6;
+  --accent: #1f3a5f;      /* deep blue used for the header and totals */
+  --accent-soft: #e9eef5; /* light tint for the table header */
+  --weak: #9a2b2b;        /* marks under 10 */
+  --page-bg: #e4e7eb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt;
+  line-height: 1.35;
+}
+
+/* ---------- Toolbar (screen only) ---------- */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 210mm;
+  margin: 16px auto 0;
+  padding: 0 12px;
+}
+.toolbar button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.toolbar button:hover { background: var(--accent-soft); }
+.toolbar button:focus-visible { outline: 3px solid #6b93c9; outline-offset: 2px; }
+.lang-switch { display: flex; }
+.lang-switch button { border-radius: 0; }
+.lang-switch button:first-child { border-radius: 6px 0 0 6px; }
+.lang-switch button:last-child  { border-radius: 0 6px 6px 0; border-left: 0; }
+.lang-switch button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+#btn-print { background: var(--accent); color: #fff; }
+#btn-print:hover { background: #17304f; }
+
+/* ---------- The sheet ---------- */
+.sheet {
+  width: 210mm;            /* A4 width */
+  max-width: 100%;
+  margin: 12px auto 32px;
+  padding: 14mm;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+.loading, .error { text-align: center; color: var(--muted); }
+.error { color: var(--weak); }
+
+/* Header: logo + school name */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--accent);
+}
+.logo, .logo-mono {
+  width: 22mm;
+  height: 22mm;
+  flex: none;
+}
+.logo { object-fit: contain; }
+.logo-mono {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20pt;
+  letter-spacing: 1px;
+}
+.school-name {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20pt;
+  line-height: 1.15;
+  color: var(--accent);
+}
+.school-city { margin: 2px 0 0; color: var(--muted); }
+
+.doc-title {
+  margin: 14px 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15pt;
+  text-align: center;
+}
+
+/* Student information */
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 24px;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+}
+.info div { display: flex; gap: 8px; }
+.info dt { color: var(--muted); }
+.info dt::after { content: ":"; }
+.info dd { margin: 0; font-weight: 600; }
+
+/* Marks table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+thead th {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.weak { color: var(--weak); font-weight: 600; }
+tfoot td {
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+/* Result boxes */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 14px 0;
+}
+.box {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+.box.main { background: var(--accent); border-color: var(--accent); color: #fff; }
+.box .label { display: block; font-size: 9.5pt; color: var(--muted); }
+.box.main .label { color: #d6e0ee; }
+.box .value { display: block; font-size: 18pt; font-weight: 700; }
+
+.note { margin: 0; font-size: 9pt; color: var(--muted); }
+
+/* Signatures */
+.signatures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 16mm;
+}
+.sign { padding-top: 4px; border-top: 1px solid var(--ink); text-align: center; color: var(--muted); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 700px) {
+  .sheet { padding: 12px; }
+  .info { grid-template-columns: 1fr; }
+  .summary { grid-template-columns: 1fr; }
+  table { font-size: 9.5pt; }
+  th, td { padding: 4px 5px; }
+}
+
+/* ---------- Printing: one clean A4 page ---------- */
+@page {
+  size: A4;
+  margin: 10mm;
+}
+@media print {
+  body { background: #fff; font-size: 10.5pt; }
+  .no-print { display: none !important; }   /* no buttons or menus on paper */
+  .sheet {
+    width: auto;
+    margin: 0;
+    padding: 4mm;
+    box-shadow: none;
+  }
+  /* keep the blue backgrounds when printing */
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  table, .summary, .info, .signatures { break-inside: avoid; }
+}

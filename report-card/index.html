@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report card / Bulletin de notes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Toolbar: visible on screen, hidden when printing -->
+  <div class="toolbar no-print">
+    <div class="lang-switch" role="group" aria-label="Language / Langue">
+      <button type="button" id="btn-en" data-lang="en">English</button>
+      <button type="button" id="btn-fr" data-lang="fr">Français</button>
+    </div>
+    <button type="button" id="btn-print">Print</button>
+  </div>
+
+  <!-- The A4 sheet. script.js fills it in from data.js -->
+  <main class="sheet" id="sheet" aria-live="polite">
+    <p class="loading">Loading…</p>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
