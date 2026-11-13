@@ -44,4 +44,4 @@ Weighted average 10.45 / 20, rank 7 of 12, class average 10.97 / 20.
 ## Deploy
 
 This repository is a static site: `index.html` is at the root, so no build step is needed.
-Connect the GitHub repository in Netlify (build command: none, publish directory: `.`), or drag this whole folder into Netlify. `netlify.toml` already sets the publish directory.
+Connect the GitHub repository in Netlify (build command: none, publish directory: `.`), or drag this whole folder into Netlify.
